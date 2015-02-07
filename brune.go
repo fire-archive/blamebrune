@@ -13,7 +13,8 @@ var jsontype jsonobject
 func handler(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, "<html><em>%v</em><form action=\"/Blame Brune\" method=\"POST\">"+
         "<input type=\"submit\" value=\"Blame Brune\">"+
-        "</form></html>", jsontype.Object.Counter)	
+        "</form></html>", jsontype.Object.Counter)
+	jsontype.Object.Counter++
 }
 
 func bruneHandler(w http.ResponseWriter, r *http.Request) {
@@ -49,6 +50,6 @@ func main() {
     fmt.Printf("%s\n", string(file))
     http.HandleFunc("/", handler)
 	http.HandleFunc("/Blame Brune", bruneHandler)
-    http.ListenAndServe(":8099", nil)
+    http.ListenAndServe(":80", nil)
 	fmt.Print(jsontype)
 }
