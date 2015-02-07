@@ -46,7 +46,6 @@ func main() {
     }
     json.Unmarshal(file, &jsontype)
     fmt.Printf("Brunes counted: %v", jsontype)
-    fmt.Printf("%s\n", string(file))
     http.HandleFunc("/", handler)
 	http.HandleFunc("/Blame Brune", bruneHandler)
     http.ListenAndServe(":80", nil)
