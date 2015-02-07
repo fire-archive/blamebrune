@@ -42,7 +42,6 @@ func main() {
 	file, e := ioutil.ReadFile("config.json")
     if e != nil {
         fmt.Printf("File error: %v\n", e)
-		return
     }
     json.Unmarshal(file, &jsontype)
     fmt.Printf("Brunes counted: %v", jsontype)
