@@ -11,10 +11,6 @@ import (
 var file []byte
 var jsontype jsonobject
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, "/blame/", 307)
-}
-
 func bruneHandler(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, "<html><link href='http://fonts.googleapis.com/css?family=Reenie+Beanie'rel='stylesheet' type='text/css'><style>span { font-family: 'Reenie Beanie', cursive; } div {font-size: 62; position: fixed; top: 50%%;  left: 50%%;  /* bring your own prefixes */  transform: translate(-50%%, -50%%);}</style><div><span>Brune blamed:&nbsp<em>%v</em></div></html>", jsontype.Object.Counter)
 	data, err := json.Marshal(jsontype)
@@ -26,6 +22,8 @@ func bruneHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Printf("Brunes counted: %v", jsontype)
 }
+
+func handlerICon(w http.ResponseWriter, r *http.Request) {} 
 
 type jsonobject struct {
     Object ObjectType
@@ -41,8 +39,8 @@ func main() {
         fmt.Printf("File error: %v\n", e)
     }
     json.Unmarshal(file, &jsontype)
-	http.HandleFunc("/", handler)
-	http.HandleFunc("/blame/", bruneHandler)
+	http.HandleFunc("/favicon.ico", handlerICon) 
+	http.HandleFunc("/", bruneHandler)
     http.ListenAndServe(":8080", nil)
 	fmt.Print(jsontype)
 }
