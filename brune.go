@@ -12,13 +12,13 @@ var jsontype jsonobject
 
 func handler(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, "<html><span>\"Brune Blamed\"<span><em>%v</em></html>", jsontype.Object.Counter)
+    jsontype.Object.Counter++
 }
 
 func bruneHandler(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, "<html><em>%v</em><form action=\"/Blame Brune\" method=\"POST\">"+
         "<input type=\"submit\" value=\"Blame Brune\">"+
         "</form></html>", jsontype.Object.Counter)
-	jsontype.Object.Counter++
 	data, err := json.Marshal(jsontype)
 	err = ioutil.WriteFile("config.json", data, 755)
 	if err != nil {
