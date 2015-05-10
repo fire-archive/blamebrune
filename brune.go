@@ -5,6 +5,7 @@ import (
 	"encoding/json"
     "net/http"
 	"io/ioutil"
+	"log"
 )
 
 var file []byte
@@ -25,6 +26,7 @@ func bruneHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Can't write file.")
 		return
 	}
+	log.Printf("Brunes counted: %v", jsontype)
 }
 
 type jsonobject struct {
@@ -41,7 +43,6 @@ func main() {
         fmt.Printf("File error: %v\n", e)
     }
     json.Unmarshal(file, &jsontype)
-    fmt.Printf("Brunes counted: %v", jsontype)
     http.HandleFunc("/", handler)
 	http.HandleFunc("/Blame Brune", bruneHandler)
     http.ListenAndServe(":8080", nil)
